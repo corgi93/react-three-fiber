@@ -1,32 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
 
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// )
-
-
-// 아래와 같이 직접 태그를 넣어서 render해줄 수 있다
-const root = ReactDOM.createRoot(
-  document.getElementById('root')
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 )
 
-function tick() {
-   const el = (
-   <div>
-      <h1>hello!</h1>
-      <h2>it is {new Date().toLocaleTimeString()}.</h2>
-  </div>
-  )
+// function Clock(props) {
+//   const [date, setDate] = useState(new Date().toLocaleTimeString());
+//   setInterval(() => {
+//     setDate(new Date().toLocaleTimeString());
+//   }, 1000);
 
-  root.render(el)
-}
+//   return (
+//     <div>
+//       <h1>hello world</h1>
+//       <h2 onClick={() => {props.onClockClick(date)}}>It is {date}</h2>
+//     </div>
+//   );
+// }
 
-setInterval(tick, 1000)
-
-// const e = <h1>hello! world</h1>
-//  root.render(e)
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<Clock onClockClick = {(time) => {
+//   alert(time)
+// }} />);
