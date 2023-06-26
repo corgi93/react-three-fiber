@@ -1,5 +1,14 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
+import Counter from "./Counter";
+import Timer from "./Timer";
+import CounterRef from "./CounterRef";
+import Memo from "./Memo";
+import Memo2 from "./Memo2";
+
+import Callback from "./Callback";
+import Box from "./Box";
+import ForwardRef from "./ForwardRef";
 
 function Part(props) {
   return <li>{props.title}</li>;
@@ -36,15 +45,18 @@ function FancyBorder(props) {
 }
 
 function queryItemsFromDBMS() {
-  console.log('dbms로부터 데이터 쿼리 중...') // 비동기 처리
-  return ['홍길동1' , '일지매2']
+  console.log("dbms로부터 데이터 쿼리 중..."); // 비동기 처리
+  return ["홍길동1", "일지매2"];
 }
 
 function App() {
   const members = ["길동", "영희", "철수a"];
   const [value, setValue] = useState("");
   // const [items, setItems] = useState(["길동", "철수"]);
-  const [items, setItems] = useState(() => {return queryItemsFromDBMS()});
+  const [items, setItems] = useState(() => {
+    return queryItemsFromDBMS();
+  });
+  const [showTimer, setShowTimer] = useState(true);
 
   const handleInputChange = (e) => {
     console.log("ee", e.target.value);
@@ -59,6 +71,33 @@ function App() {
       return [...prevItems, value];
     });
   };
+
+  /**
+   * useCallback
+   */
+
+  const [size, setSizes] = useState(100);
+  const [isDark, setIsDark] = useState(true);
+
+  // const createBoxStyle = () => {
+  //   return {
+  //     backgroundColor: "red",
+  //     width: `${size}px`,
+  //     height: `${size}px`,
+  //   };
+  // };
+
+  // FIX: memoization으로 최적화.
+  // 위에선isDark값이 바뀌면 createBoxStyle함수가 재정의..
+  // useCallback과 size를 지정하고 size상태만 변경될 때만 createBoxStyle 재정의 하도록해서
+  // size변경시만 렌더링되도록 최적화
+  const createBoxStyle = useCallback(() => {
+    return {
+      backgroundColor: "red",
+      width: `${size}px`,
+      height: `${size}px`,
+    };
+  }, [size]);
 
   return (
     <>
@@ -79,6 +118,38 @@ function App() {
       {items.map((name, idx) => {
         return <p key={idx}>{name}</p>;
       })}
+
+      <h2>coutner - useEffect..</h2>
+      <Counter />
+
+      <h2>timer - useEffect..</h2>
+      <div>
+        <button onClick={() => setShowTimer(!showTimer)}>타이머 ON/OFF</button>
+        {showTimer && <Timer></Timer>}
+      </div>
+
+      <h2>useRef 실습</h2>
+      <CounterRef />
+
+      <Memo />
+
+      <Memo2 />
+
+      <Callback />
+
+      <br />
+      <div style={{ background: isDark ? "black" : "white" }}>
+        <input
+          type="number"
+          value={size}
+          onChange={(e) => setSizes(e.target.value)}
+        />
+        <Box createBoxStyle={createBoxStyle} />
+        <button onClick={() => setIsDark(!isDark)}>Change Theme</button>
+      </div>
+
+      <br />
+      <ForwardRef />
     </>
   );
 }
