@@ -21,6 +21,7 @@ import Diamond from "./three/Diamond";
 
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import TexteredSphere from "./three/TexteredSphere";
+import Avatar from "./three/Avatar";
 
 function Suzi(props) {
   const { scene, materials } = useGLTF("./suzan.glb");
@@ -95,51 +96,60 @@ function App() {
     /**
      * 실습3
      */
-    <Canvas shadows camera={{ position: [8, 1.5, 8], fov: 100 }}>
-      <color args={["goldenrod"]} attach="background" />
-      {/* <ambientLight intensity={0.1} /> */}
+    // <Canvas shadows camera={{ position: [8, 1.5, 8], fov: 100 }}>
+    //   <color args={["goldenrod"]} attach="background" />
+    //   {/* <ambientLight intensity={0.1} /> */}
 
-      <axesHelper />
-      <directionalLight position={[1, 1, 1]} intensity={1.3} />
-      <Environment preset="city" />
-      <AccumulativeShadows
-        temporal
-        frames={120}
-        color="orange"
-        colorBlend={2}
-        toneMapped={true}
-        alphaTest={0.9}
-        opacity={2}
-        scale={12}
-      >
-        <RandomizedLight
-          amount={8}
-          radius={4}
-          ambient={0.5}
-          intensity={1}
-          position={[5, 5, -10]}
-          bias={0.001}
-        />
-      </AccumulativeShadows>
+    //   <axesHelper />
+    //   <directionalLight position={[1, 1, 1]} intensity={1.3} />
+    //   <Environment preset="city" />
+    //   <AccumulativeShadows
+    //     temporal
+    //     frames={120}
+    //     color="orange"
+    //     colorBlend={2}
+    //     toneMapped={true}
+    //     alphaTest={0.9}
+    //     opacity={2}
+    //     scale={12}
+    //   >
+    //     <RandomizedLight
+    //       amount={8}
+    //       radius={4}
+    //       ambient={0.5}
+    //       intensity={1}
+    //       position={[5, 5, -10]}
+    //       bias={0.001}
+    //     />
+    //   </AccumulativeShadows>
 
+    //   <OrbitControls makeDefault />
+
+    //   <Center top>
+    //     <Suzi rotation={[-0.63, 0, 0]} scale={2} />
+    //   </Center>
+
+    //   <Center top position={[-2, 0, 1]}>
+    //     <mesh castShadow>
+    //       <sphereGeometry args={[0.25, 64, 64]} />
+    //       <meshStandardMaterial color="lightblue" />
+    //     </mesh>
+    //   </Center>
+    //   <Center top position={[2.5, 0, 1]}>
+    //     <mesh castShadow rotation={[0, Math.PI / 4, 0]}>
+    //       <boxGeometry args={[0.5, 0.5, 0.5]} />
+    //       <meshStandardMaterial color="indianred" />
+    //     </mesh>
+    //   </Center>
+    // </Canvas>
+
+    <Canvas shadows camera={{ fov: 30 }}>
       <OrbitControls makeDefault />
-
-      <Center top>
-        <Suzi rotation={[-0.63, 0, 0]} scale={2} />
+      <Environment preset="city" />
+      <Center position={[0, -0.7, 0]}>
+        <Avatar />
       </Center>
-
-      <Center top position={[-2, 0, 1]}>
-        <mesh castShadow>
-          <sphereGeometry args={[0.25, 64, 64]} />
-          <meshStandardMaterial color="lightblue" />
-        </mesh>
-      </Center>
-      <Center top position={[2.5, 0, 1]}>
-        <mesh castShadow rotation={[0, Math.PI / 4, 0]}>
-          <boxGeometry args={[0.5, 0.5, 0.5]} />
-          <meshStandardMaterial color="indianred" />
-        </mesh>
-      </Center>
+      <ambientLight intensity={0.2} />
     </Canvas>
   );
 }

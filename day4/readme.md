@@ -112,3 +112,7 @@ Character.jsx
 2. 그림자를 위한 카메라가 항상 캐릭터를 일정한 각도로 추적하도록
    (즉, 그림자 카메라(여기서는 directionalLight사용)의 절두체 안에 캐릭터가 항상 존재하도록)
 
+
+### 아바타 생성
+
+https://readyplayer.me/avatar

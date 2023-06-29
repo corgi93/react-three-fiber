@@ -6,6 +6,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import Character from "./Character";
+import Avatar from "./Avatar";
 import { Perf } from "r3f-perf";
 import { Debug, Physics, RigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
