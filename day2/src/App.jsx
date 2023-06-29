@@ -7,6 +7,8 @@ import AccumulativeComp from "./three/AccumulativeComp";
 import Background from "./three/Background";
 import ThreeModel from "./three/ThreeModel";
 import Groot from "./three/Groot";
+import Picking from "./three/Picking";
+import PostProcessing from "./three/PostProcessing";
 
 function App() {
   // 배경색 설정하는 법 gl에서 세팅
@@ -17,7 +19,14 @@ function App() {
 
   return (
     //  shadows를 false하여 threejs의 그림자 시스템을 사용하지 않을 수 있음
-    <Canvas shadows dpr={[1, 2]} onCreated={onCreated}>
+    <Canvas
+      onPointerMissed={() => {
+        console.log("you missed");
+      }}
+      shadows
+      dpr={[1, 2]}
+      onCreated={onCreated}
+    >
       {/* <Experience /> */}
 
       {/* <Control /> */}
@@ -30,7 +39,12 @@ function App() {
       {/* <Background /> */}
 
       {/* <ThreeModel /> */}
-      <Groot scale={2} position-y={-0.8} />
+
+      {/* <Groot scale={2} position-y={-0.8} /> */}
+
+      {/* <Picking /> */}
+
+      <PostProcessing />
     </Canvas>
   );
 }

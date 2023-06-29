@@ -460,3 +460,86 @@ drei의 model 객체를 clone해서 사용할 수 있다
 ### GLTF 컴포넌트화(코드화)
 온라인 툴에서 사용가능하다[https://gltf.pmnd.rs/]
 
+
+
+<hr>
+
+## picking (이벤트 처리)
+mesh에 대한 onClick을 줄 수 있다.
+
+```
+<mesh onClick={ () => { console.log("클릭") } }
+ref={cubeRef} position-x={2} scale={1.5}>
+  <boxGeometry />
+  <meshStandardMaterial color="#F9E79F" />
+</mesh>
+```
+
+ref로 mesh를 지정해서 속성 값을 바꿔주거나 할 수 있다. mesh의 onClick 이벤트 시 중요한 값 
+
+```
+mesh onClick={ (event) => { console.log(event) }}
+
+```
+### 위에서 event에 mesh의 많은 정보중 특히 중요한 값들
+- distance : 카메라와 클릭한 지점 사이의 거리
+- point : 클릭한 지점(3D 좌표)
+- uv : 클릭한 지점의 uv 좌표
+- object : 이벤트를 발생한 객체(이 경우 Mesh)
+- eventObject : 이벤트 리스너가 할당된 객체
+- x : 클릭한 지점의 화면 좌표 X
+- y : 클릭한 지점의 화면 좌표 Y
+- shiftKey
+- ctrlKey
+- metaKey
+- ray
+- face
+- faceId
+
+
+### onClick외 다른 이벤트
+- onContextMenu
+- onDouleClick
+- onPointerUp
+- onPointerDown
+- onPointerOver / onPointEnter : mouseon 같은 
+- onPointerOut / onPointLeave :mouse out같은
+```
+        <mesh
+          onClick={(event) => {
+            console.log("박스 선택");
+            event.stopPropagation();
+          }}
+          onPointerEnter={(event) => {
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerLeave={(event) => {
+            document.body.style.cursor = "default";
+          }}
+          ref={cubeRef}
+          position-x={2}
+          scale={1.5}
+        >
+          <boxGeometry />
+          <meshStandardMaterial color="#F9E79F" />
+        </mesh>
+
+```
+
+- onPointerMove
+- onPointerMissed : Canvas에 지정할 경우 클릭 시 매시에 대한 onClick 이벤트가 없는 경우에 발생
+
+## postProcessing
+이미지를 만들고 출력하기 직전에 이미지에 대한 후처리 (blur를 준다거나 , noise를 준다거나, 조도를 바꾼다거나, 흑백으로 처리 등등)
+
+- 패키지 설치
+``` npm install @react/postprocessing```
+
+/three/PostProcessing.jsx 참조
+
+### Bloom
+Bloo Effect는 활용도가 높으니 참고.
+
+### DepthOfField 
+DepthOfField Effect는 뒤에 있는 건 뿌옇게 보이게하는 이펙트
+
